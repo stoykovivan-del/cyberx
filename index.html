@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CyberX - Autonomous Systems That Build, Run, and Scale Your Business</title>
+  <meta name="description" content="CyberX creates intelligent software that operates independently—building products, managing operations, and driving growth without manual intervention.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #0066FF;
+      --primary-dark: #0052CC;
+      --secondary: #0A0E1A;
+      --accent: #00D4FF;
+      --light: #F1F5F9;
+      --dark: #1E293B;
+      --gray: #64748B;
+      --border: #E2E8F0;
+      --white: #FFFFFF;
+      --success: #10B981;
+      --warning: #F59E0B;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      color: var(--dark);
+      background: var(--light);
+    }
+
+    a:focus, button:focus, input:focus, textarea:focus, select:focus {
+      outline: 3px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: var(--primary);
+      color: white;
+      padding: 8px 16px;
+      z-index: 1000;
+      transition: top 0.2s;
+    }
+
+    .skip-link:focus {
+      top: 0;
+    }
+
+    header {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--secondary);
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-icon svg {
+      width: 20px;
+      height: 20px;
+      fill: var(--secondary);
+    }
+
+    nav {
+      display: flex;
+      gap: 2rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--gray);
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    nav a:hover, nav a:focus {
+      color: var(--primary);
+    }
+
+    .hero {
+      background: linear-gradient(135deg, var(--secondary) 0%, #1a2744 50%, #0A0E1A 100%);
+      color: white;
+      padding: 6rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 30% 50%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 80%, rgba(0, 102, 255, 0.15) 0%, transparent 40%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+      opacity: 0.9;
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 1rem 2rem;
+      background: var(--primary);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: all 0.2s;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0, 102, 255, 0.3);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 2px solid var(--accent);
+      color: var(--accent);
+      margin-left: 1rem;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(0, 212, 255, 0.1);
+    }
+
+    .section {
+      padding: 5rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 3rem;
+      color: var(--secondary);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .service-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      transition: all 0.2s;
+    }
+
+    .service-card:hover {
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      transform: translateY(-4px);
+      border-color: var(--accent);
+    }
+
+    .service-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .service-icon svg {
+      width: 24px;
+      height: 24px;
+      fill: var(--white);
+    }
+
+    .service-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--secondary);
+    }
+
+    .service-card p {
+      color: var(--gray);
+    }
+
+    .about {
+      background: var(--white);
+    }
+
+    .about-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .about h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--secondary);
+    }
+
+    .about p {
+      color: var(--gray);
+      font-size: 1.125rem;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .stat-label {
+      color: var(--gray);
+      font-size: 0.875rem;
+    }
+
+    .cta {
+      background: linear-gradient(135deg, var(--secondary) 0%, #1a2744 100%);
+      color: white;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 50% 100%, rgba(0, 212, 255, 0.1) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .cta h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta p {
+      opacity: 0.9;
+      margin-bottom: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    form {
+      max-width: 500px;
+      margin: 0 auto;
+      text-align: left;
+      position: relative;
+      z-index: 1;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: var(--white);
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      font-size: 1rem;
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--white);
+    }
+
+    input::placeholder, textarea::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    input:focus, textarea:focus {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: var(--accent);
+    }
+
+    footer {
+      background: var(--secondary);
+      color: white;
+      padding: 3rem 2rem;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+
+    .footer-col h4 {
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      color: var(--accent);
+    }
+
+    .footer-col p {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .footer-col a {
+      display: block;
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      margin-bottom: 0.5rem;
+      transition: color 0.2s;
+    }
+
+    .footer-col a:hover, .footer-col a:focus {
+      color: var(--accent);
+    }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 2rem auto 0;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      text-align: center;
+      opacity: 0.7;
+      font-size: 0.875rem;
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      .btn-secondary {
+        margin-left: 0;
+        margin-top: 1rem;
+        display: block;
+      }
+
+      .about-content {
+        grid-template-columns: 1fr;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      nav {
+        display: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <header role="banner">
+    <a href="/" class="logo" aria-label="CyberX Home">
+      <div class="logo-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+        </svg>
+      </div>
+      <span>CyberX</span>
+    </a>
+    <nav role="navigation" aria-label="Main navigation">
+      <a href="#services">Services</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-content">
+        <h1 id="hero-title">Autonomous Systems That Build, Run, and Scale Your Business</h1>
+        <p>CyberX creates intelligent software that operates independently—building products, managing operations, and driving growth without manual intervention.</p>
+        <div class="hero-buttons">
+          <a href="#contact" class="btn">Get Started</a>
+          <a href="#services" class="btn btn-secondary">View Services</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="services" aria-labelledby="services-title">
+      <h2 id="services-title" class="section-title">Our Services</h2>
+      <div class="services-grid">
+        <article class="service-card">
+          <div class="service-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/>
+              <path d="M12 6v6l4 2"/>
+            </svg>
+          </div>
+          <h3>Product Automation</h3>
+          <p>End-to-end automation for product development, testing, and deployment cycles.</p>
+        </article>
+        <article class="service-card">
+          <div class="service-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2a10 10 0 1 0 10 10 10 10 0 0 0-10-10zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/>
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M12 2v2m0 16v2M2 12h2m16 0h2"/>
+            </svg>
+          </div>
+          <h3>AI Operations</h3>
+          <p>Intelligent systems that learn, adapt, and optimize your business processes autonomously.</p>
+        </article>
+        <article class="service-card">
+          <div class="service-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 3h18v18H3V3zm16 16V5H5v14h14z"/>
+              <path d="M7 7h10v10H7V7z"/>
+            </svg>
+          </div>
+          <h3>Scalable Infrastructure</h3>
+          <p>Self-healing, self-scaling infrastructure that grows with your business needs.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section about" id="about" aria-labelledby="about-title">
+      <div class="about-content">
+        <div>
+          <h2 id="about-title">Building the Future of Autonomous Systems</h2>
+          <p>At CyberX, we're pioneering the next generation of software that creates, operates, and sustains itself. Our mission is to minimize human intervention while maximizing efficiency and profitability.</p>
+        </div>
+        <div class="stats" role="list" aria-label="Company statistics">
+          <div class="stat" role="listitem">
+            <div class="stat-value">99.9%</div>
+            <div class="stat-label">Uptime</div>
+          </div>
+          <div class="stat" role="listitem">
+            <div class="stat-value">50+</div>
+            <div class="stat-label">Enterprise Clients</div>
+          </div>
+          <div class="stat" role="listitem">
+            <div class="stat-value">24/7</div>
+            <div class="stat-label">Operations</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section cta" id="contact" aria-labelledby="contact-title">
+      <h2 id="contact-title">Ready to Transform Your Business?</h2>
+      <p>Let's discuss how our autonomous systems can drive your success.</p>
+      <form action="#" method="post" aria-label="Contact form">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" placeholder="Your name" required aria-required="true">
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="your@email.com" required aria-required="true">
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="4" placeholder="Tell us about your project" required aria-required="true"></textarea>
+        </div>
+        <button type="submit" class="btn">Send Message</button>
+      </form>
+    </section>
+  </main>
+
+  <footer role="contentinfo">
+    <div class="footer-content">
+      <div class="footer-col">
+        <h4>CyberX</h4>
+        <p>Building autonomous software systems for the future.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <a href="#services">Product Automation</a>
+        <a href="#services">AI Operations</a>
+        <a href="#services">Infrastructure</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="#about">About</a>
+        <a href="#">Careers</a>
+        <a href="#">Blog</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="mailto:support@cyberx.io">support@cyberx.io</a>
+        <a href="tel:+15551234567">+1 (555) 123-4567</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2026 CyberX. All rights reserved.
+    </div>
+  </footer>
+</body>
+</html>
