@@ -1,0 +1,92 @@
+---
+pagerduty:
+  enabled: true
+  
+  api_url: https://events.pagerduty.com/v2/enqueue
+  
+  service_key: ${PAGERDUTY_SERVICE_KEY}
+  
+  default_severity: critical
+  
+  routing:
+    critical:
+      service_id: ${PAGERDUTY_CRITICAL_SERVICE_ID}
+      escalation_policy_id: ${PAGERDUTY_ESCALATION_POLICY_ID}
+    
+    warning:
+      service_id: ${PAGERDUTY_WARNING_SERVICE_ID}
+      escalation_policy_id: ${PAGERDUTY_ESCALATION_POLICY_ID}
+    
+    info:
+      service_id: ${PAGERDUTY_INFO_SERVICE_ID}
+      escalation_policy_id: ${PAGERDUTY_ESCALATION_POLICY_ID}
+
+  event_mapping:
+    - alert_name: HighErrorRate
+      event_action: trigger
+      dedup_key: "cyberx-high-error-{{ $labels.service }}"
+      severity: critical
+      custom_details:
+        service: "{{ $labels.service }}"
+        error_rate: "{{ $value }}"
+        threshold: "5%"
+    
+    - alert_name: ServiceDown
+      event_action: trigger
+      dedup_key: "cyberx-service-down-{{ $labels.instance }}"
+      severity: critical
+      custom_details:
+        instance: "{{ $labels.instance }}"
+    
+    - alert_name: HighLatency
+      event_action: trigger
+      dedup_key: "cyberx-high-latency-{{ $labels.service }}"
+      severity: critical
+      custom_details:
+        service: "{{ $labels.service }}"
+        latency_p99: "{{ $value }}s"
+        threshold: "5s"
+    
+    - alert_name: MemoryExhaustion
+      event_action: trigger
+      dedup_key: "cyberx-memory-low-{{ $labels.instance }}"
+      severity: critical
+      custom_details:
+        instance: "{{ $labels.instance }}"
+        available_memory: "{{ $value | humanizePercentage }}"
+        threshold: "10%"
+    
+    - alert_name: DiskSpaceLow
+      event_action: trigger
+      dedup_key: "cyberx-disk-low-{{ $labels.instance }}"
+      severity: critical
+      custom_details:
+        instance: "{{ $labels.instance }}"
+        available_disk: "{{ $value | humanizePercentage }}"
+        threshold: "10%"
+    
+    - alert_name: HighRequestRate
+      event_action: trigger
+      dedup_key: "cyberx-high-request-rate-{{ $labels.service }}"
+      severity: warning
+      custom_details:
+        service: "{{ $labels.service }}"
+        request_rate: "{{ $value }} req/s"
+    
+    - alert_name: ElevatedErrorRate
+      event_action: trigger
+      dedup_key: "cyberx-elevated-4xx-{{ $labels.service }}"
+      severity: warning
+      custom_details:
+        service: "{{ $labels.service }}"
+        error_rate: "{{ $value | humanizePercentage }}"
+
+  integration:
+    prometheus:
+      alertmanager_config: /etc/alertmanager/alertmanager.yml
+      webhook_url: /api/v1/alerts
+    
+    health_check:
+      enabled: true
+      interval: 60s
+      timeout: 10s
